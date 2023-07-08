@@ -1,7 +1,15 @@
-*, *::before, *::after{
+*{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+}
+
+.hidden{
+    display: none;
+}
+
+.visible{
+    display: block;
 }
 
 body{
@@ -32,7 +40,6 @@ button{
 }
 
 
-
 main{
     padding: 20px;
     margin-bottom: 5vh;
@@ -43,14 +50,19 @@ main{
 }
 
 .form-div{
-    display: none;
+    position: absolute;
+    top: 20vh;
+    left: 40vw;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid green;
 }
 
 form{
     display: flex;
     flex-direction: column;
     gap: 20px;
-    border: 1px solid green;
+    
 }
 
 .tarea{
@@ -59,9 +71,11 @@ form{
     justify-content: space-between;
     min-width: 40vw;
     min-width: 60vw;
-    border: 1px solid black;
+    border-radius: 12px;
     align-items: center;
     justify-items: center;
+    padding: 10px 20px;
+    background-color: rgb(185, 224, 255);
 }
 
 .div-tareas-labels{
@@ -71,7 +85,6 @@ form{
     align-items: center;
     min-width: 40vw;
     min-width: 60vw;
-    border: 1px solid black;
     justify-items: center;
 }
 

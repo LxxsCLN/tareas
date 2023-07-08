@@ -23,7 +23,7 @@
             <p></p>
         </div>
 
-        <div class="form-div">
+        <div class="form-div hidden">
             <form onsubmit="return false" id="form">
                 <label for="tarea-texto">
                     Ingresa tu tarea:
@@ -39,6 +39,26 @@
                 <div class="div-botones">  
                     <button id="cancelar-tarea">Cancelar</button>
                     <button id="aceptar-tarea">Crear</button>
+                </div>  
+            </form>            
+        </div>
+
+        <div class="edit-form-div hidden">
+            <form onsubmit="return false" id="edit-form">
+                <label for="tarea-texto-edit">
+                    Ingresa tu tarea:
+                    <input type="text" id="tarea-texto-edit">
+                </label>
+                <label for="prioridad-edit">Prioridad:
+                    <select name="prioridad-edit" id="prioridad-edit">
+                        <option value="Baja">Baja</option>
+                        <option value="Media">Media</option>
+                        <option value="Alta">Alta</option>
+                    </select>
+                </label> 
+                <div class=" div-botones div-botones-edit">  
+                    <button id="cancelar-tarea-edit">Cancelar</button>
+                    <button id="aceptar-tarea-edit">Editar</button>
                 </div>  
             </form>            
         </div>
