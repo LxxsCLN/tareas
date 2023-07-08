@@ -26,36 +26,49 @@ class Tarea {
         this.estado = false;
     }
 
-    crearTarea1(){
-        let divTarea = document.createElement("div");
-        divTarea.classList.add("tarea");
+    
+}
 
-        let textoTarea = document.createElement("p");
-        textoTarea.innerText = this.texto;
+function crearTarea1(tarea){
+    let divTarea = document.createElement("div");
+    divTarea.classList.add("tarea");
 
-        let prioridadTarea = document.createElement("p");
-        prioridadTarea.innerText = this.prioridad;
+    let textoTarea = document.createElement("p");
+    textoTarea.innerText = tarea.texto;
 
-        let editarTarea = document.createElement("a");
-        let editarTareaIcono = document.createElement("i")
-        editarTareaIcono.className = "fa-solid fa-pen-to-square editar-tarea fa-2xl" 
-        editarTarea.append(editarTareaIcono)
+    let prioridadTarea = document.createElement("p");
+    prioridadTarea.innerText = tarea.prioridad;
 
-        let estadoTarea = document.createElement("input");
-        estadoTarea.setAttribute("type", "checkbox")
-        estadoTarea.setAttribute("name", "estado-tarea")
-        estadoTarea.setAttribute("id", "estado-tarea")
-        estadoTarea.setAttribute("value", "false")
+    let editarTarea = document.createElement("a");
+    let editarTareaIcono = document.createElement("i")
+    editarTareaIcono.className = "fa-solid fa-pen-to-square editar-tarea fa-2xl" 
+    editarTarea.append(editarTareaIcono)
 
-        let eliminarTarea = document.createElement("button")
-        eliminarTarea.innerText = "Eliminar"
-        eliminarTarea.classList.add("eliminar-tarea")
-               
+    let estadoTarea = document.createElement("input");
+    estadoTarea.setAttribute("type", "checkbox")
+    estadoTarea.setAttribute("name", "estado-tarea")
+    estadoTarea.setAttribute("id", "estado-tarea")
+    estadoTarea.setAttribute("value", "false")
 
-        divTarea.append(textoTarea, prioridadTarea, editarTarea, estadoTarea, eliminarTarea)
+    let eliminarTarea = document.createElement("button")
+    eliminarTarea.innerText = "Eliminar"
+    eliminarTarea.classList.add("eliminar-tarea")
+           
 
-        return divTarea;
+    divTarea.append(textoTarea, prioridadTarea, editarTarea, estadoTarea, eliminarTarea)
 
+    return divTarea;
+
+}
+
+function cargarTareas(){
+    if (localStorage.getItem("listaDeTareas") !== null){
+        listaDeTareas = JSON.parse(localStorage.getItem("listaDeTareas"));
+        
+        listaDeTareas.forEach(tarea => {
+            divTareas.append(crearTarea1(tarea))
+        });    
+        console.log(listaDeTareas)
     }
 }
 
@@ -65,8 +78,8 @@ function crearTareaF(){
     }
     const nuevaTarea = new Tarea(tareaText.value, prioridad.value)
     listaDeTareas.push(nuevaTarea);
-    divTareas.append(nuevaTarea.crearTarea1())
-    //localStorage.setItem("listaDeTareas", JSON.stringify(listaDeTareas))
+    divTareas.append(crearTarea1(nuevaTarea))
+    localStorage.setItem("listaDeTareas", JSON.stringify(listaDeTareas))
     toggleForm();
     console.log(listaDeTareas)
 }
@@ -82,7 +95,7 @@ function editarTareaF(e){
     listaDeTareas[currentTask] = new Tarea(tareaTextEdit.value, prioridadEdit.value)
     console.log(listaDeTareas)
     editToggleForm()    
-    divTareas.insertBefore(listaDeTareas[currentTask].crearTarea1(), currentTaskDiv)
+    divTareas.insertBefore(crearTarea1(listaDeTareas[currentTask]), currentTaskDiv)
     currentTaskDiv.remove();
 }
 
@@ -170,3 +183,4 @@ if (localStorage.getItem("listaDeTareas") !== null){
 
 
 
+cargarTareas()
