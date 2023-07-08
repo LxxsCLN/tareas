@@ -1,7 +1,14 @@
-*{
+*, *::before, *::after{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 header{
@@ -21,18 +28,71 @@ button{
     color: white;
     font-weight: bold;
     cursor: pointer;
+    font-size: 1rem;
 }
 
-body{
-    display: flex;
-    flex-direction: column;
-    width: 100vw;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
+
 
 main{
+    padding: 20px;
     margin-bottom: 5vh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
 }
+
+.form-div{
+    display: none;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border: 1px solid green;
+}
+
+.tarea{
+    display: grid;
+    grid-template-columns: 3fr 3fr 1fr 1fr 1fr;
+    justify-content: space-between;
+    min-width: 40vw;
+    min-width: 60vw;
+    border: 1px solid black;
+    align-items: center;
+    justify-items: center;
+}
+
+.div-tareas-labels{
+    display: grid;
+    grid-template-columns: 3fr 3fr 1fr 1fr 1fr;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 40vw;
+    min-width: 60vw;
+    border: 1px solid black;
+    justify-items: center;
+}
+
+.eliminar-tarea{
+    background-color: red;
+}
+
+a{
+    cursor: pointer;
+}
+
+i{
+    line-height: 2rem;
+}
+
+input[type="checkbox"]{
+    height: 2rem;
+    width: 2rem;
+}
+
+
 
 footer{
     width: 100vw;

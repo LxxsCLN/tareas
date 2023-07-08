@@ -13,16 +13,41 @@
         <button class="crear-tarea">Agregar Tarea</button>
     </header>
 
-    <main>
+    <main class="div-tareas">
+
+        <div class="div-tareas-labels">
+            <p>Tarea</p>
+            <p>Prioridad</p>
+            <p>Editar</p>
+            <p>Estado</p>
+            <p></p>
+        </div>
 
         <div class="form-div">
-
+            <form onsubmit="return false" id="form">
+                <label for="tarea-texto">
+                    Ingresa tu tarea:
+                    <input type="text" id="tarea-texto">
+                </label>
+                <label for="prioridad">Prioridad:
+                    <select name="prioridad" id="prioridad">
+                        <option value="Baja">Baja</option>
+                        <option value="Media">Media</option>
+                        <option value="Alta">Alta</option>
+                    </select>
+                </label> 
+                <div class="div-botones">  
+                    <button id="cancelar-tarea">Cancelar</button>
+                    <button id="aceptar-tarea">Crear</button>
+                </div>  
+            </form>            
         </div>
 
     </main>
 
     <footer>Hecho por Luis Espino</footer>
 
+    <script src="https://kit.fontawesome.com/78bd5d5396.js" crossorigin="anonymous"></script>
     <script src="script.js"></script>
 </body>
 </html>
