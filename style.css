@@ -1,0 +1,47 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 20px 0;
+    background-color: #1a344e;
+    color: white;
+}
+
+button{
+    padding: 10px 20px;
+    background-color: rgb(23, 138, 252);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+main{
+    margin-bottom: 5vh;
+}
+
+footer{
+    width: 100vw;
+    height: 5vh;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1a344e;
+    color: white;
+}
