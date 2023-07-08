@@ -48,7 +48,7 @@ function crearTarea1(tarea){
     estadoTarea.setAttribute("type", "checkbox")
     estadoTarea.setAttribute("name", "estado-tarea")
     estadoTarea.setAttribute("id", "estado-tarea")
-    estadoTarea.setAttribute("value", "false")
+    estadoTarea.setAttribute("value", "checked")
 
     let eliminarTarea = document.createElement("button")
     eliminarTarea.innerText = "Eliminar"
@@ -167,20 +167,6 @@ document.addEventListener("click", e => {
         editarTareaF()
     }
 })
-
-
-/* //localstorage
-if (localStorage.getItem("listaDeTareas") !== null){
-    listaDeTareas = JSON.parse(localStorage.getItem("listaDeTareas"));
-    
-    listaDeTareas.forEach(tarea => {
-        divTareas.firstChild.append(tarea.crearTarea1())
-    }); 
-    /* for (let i in listaDeTareas){
-        i.crearTarea()
-    } 
-} */
-
 
 
 cargarTareas()
