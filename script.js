@@ -24,14 +24,15 @@ class Tarea {
         this.texto = texto;
         this.prioridad = prioridad;
         this.estado = false;
-    }
-
-    
+        this.id = Date.now().toString(36) + Math.floor(Math.pow(10, 12) + Math.random() * 9*Math.pow(10, 12)).toString(36)
+    }    
 }
 
 function crearTarea1(tarea){
+    let isChecked = tarea.estado ? "checked" : "unchecked";
     let divTarea = document.createElement("div");
     divTarea.classList.add("tarea");
+    divTarea.setAttribute("data-id", `${tarea.id}`)
 
     let textoTarea = document.createElement("p");
     textoTarea.innerText = tarea.texto;
@@ -48,17 +49,14 @@ function crearTarea1(tarea){
     estadoTarea.setAttribute("type", "checkbox")
     estadoTarea.setAttribute("name", "estado-tarea")
     estadoTarea.setAttribute("id", "estado-tarea")
-    estadoTarea.setAttribute("value", "checked")
+    estadoTarea.setAttribute(`${isChecked}`, "")
 
     let eliminarTarea = document.createElement("button")
     eliminarTarea.innerText = "Eliminar"
-    eliminarTarea.classList.add("eliminar-tarea")
-           
+    eliminarTarea.classList.add("eliminar-tarea")           
 
     divTarea.append(textoTarea, prioridadTarea, editarTarea, estadoTarea, eliminarTarea)
-
     return divTarea;
-
 }
 
 function cargarTareas(){
@@ -67,8 +65,7 @@ function cargarTareas(){
         
         listaDeTareas.forEach(tarea => {
             divTareas.append(crearTarea1(tarea))
-        });    
-        console.log(listaDeTareas)
+        });
     }
 }
 
@@ -85,9 +82,9 @@ function crearTareaF(){
 }
 
 function eliminarTareaF(e, olde){    
-    let index = listaDeTareas.findIndex(x => x.texto === e.target.parentElement.firstChild.innerText);
+    let index = listaDeTareas.findIndex(x => x.id === e.target.parentElement.dataset.id);
     listaDeTareas.splice(index, 1);
-    console.log(listaDeTareas)
+    localStorage.setItem("listaDeTareas", JSON.stringify(listaDeTareas))
     e.target.parentElement.remove()
 }
 
@@ -114,6 +111,12 @@ function editToggleForm(){
     } else {
         formDivEdit.className = "form-div hidden"
     }
+}
+
+function editarEstado(e){
+    let index = listaDeTareas.findIndex(x => x.id === e.target.parentElement.dataset.id);
+    listaDeTareas[index].estado = !listaDeTareas[index].estado; 
+    localStorage.setItem("listaDeTareas", JSON.stringify(listaDeTareas))
 }
 
 crearTarea.addEventListener("click", (e)=> {
@@ -147,7 +150,7 @@ document.addEventListener("click", e => {
 document.addEventListener("click", e => {
     if (e.target.matches(".editar-tarea")) {
         e.stopImmediatePropagation();  
-        currentTask = listaDeTareas.findIndex(x => x.texto === e.target.parentElement.parentElement.firstChild.innerText);
+        currentTask = listaDeTareas.findIndex(x => x.id === e.target.parentElement.parentElement.dataset.id);
         currentTaskDiv = e.target.parentElement.parentElement;
         editToggleForm(e)
     }
@@ -165,6 +168,12 @@ document.addEventListener("click", e => {
         e.stopImmediatePropagation();  
         e.preventDefault()
         editarTareaF()
+    }
+})
+
+document.addEventListener("change", e => {
+    if (e.target.matches("#estado-tarea")) {
+        editarEstado(e)
     }
 })
 
