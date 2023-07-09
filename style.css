@@ -4,13 +4,7 @@
     box-sizing: border-box;
 }
 
-.hidden{
-    display: none;
-}
 
-.visible{
-    display: block;
-}
 
 body{
     display: flex;
@@ -117,4 +111,12 @@ footer{
     align-items: center;
     background-color: #1a344e;
     color: white;
+}
+
+.hidden{
+    display: none;
+}
+
+.visible{
+    display: block;
 }

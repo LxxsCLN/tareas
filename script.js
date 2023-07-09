@@ -6,7 +6,9 @@ const prioridad = document.querySelector("#prioridad");
 const cancelarTarea = document.querySelector("#cancelar-tarea");
 const aceptarTarea = document.querySelector("#aceptar-tarea");
 const divTareas = document.querySelector(".div-tareas")
-
+const searchInput = document.querySelector("#searchbox")
+const ordenar = document.querySelector("#ordenar")
+const filtrar = document.querySelector("#filtrar")
 
 const formDivEdit = document.querySelector(".edit-form-div");
 const formEdit = document.querySelector("#form-edit");
@@ -20,16 +22,24 @@ let currentTask = undefined;
 let currentTaskDiv = undefined;
 
 class Tarea {
+
+    fechaTest = new Date();
+    fechaMs = this.fechaTest.getTime()
+
     constructor(texto, prioridad){
         this.texto = texto;
         this.prioridad = prioridad;
         this.estado = false;
         this.id = Date.now().toString(36) + Math.floor(Math.pow(10, 12) + Math.random() * 9*Math.pow(10, 12)).toString(36)
+        this.fecha = this.fechaMs;
     }    
 }
 
 function crearTarea1(tarea){
+    console.log(tarea.fecha)
+    let prior = tarea.prioridad === "1" ? "Baja" : tarea.prioridad === "2" ? "Media" : "Alta";
     let isChecked = tarea.estado ? "checked" : "unchecked";
+
     let divTarea = document.createElement("div");
     divTarea.classList.add("tarea");
     divTarea.setAttribute("data-id", `${tarea.id}`)
@@ -38,7 +48,7 @@ function crearTarea1(tarea){
     textoTarea.innerText = tarea.texto;
 
     let prioridadTarea = document.createElement("p");
-    prioridadTarea.innerText = tarea.prioridad;
+    prioridadTarea.innerText = prior;
 
     let editarTarea = document.createElement("a");
     let editarTareaIcono = document.createElement("i")
@@ -61,8 +71,9 @@ function crearTarea1(tarea){
 
 function cargarTareas(){
     if (localStorage.getItem("listaDeTareas") !== null){
+
         listaDeTareas = JSON.parse(localStorage.getItem("listaDeTareas"));
-        
+        listaDeTareas.sort(function(a,b){return (a.fecha) - (b.fecha)});
         listaDeTareas.forEach(tarea => {
             divTareas.append(crearTarea1(tarea))
         });
@@ -89,11 +100,13 @@ function eliminarTareaF(e, olde){
 }
 
 function editarTareaF(e){
+    console.log(prioridadEdit.value)
     listaDeTareas[currentTask] = new Tarea(tareaTextEdit.value, prioridadEdit.value)
-    console.log(listaDeTareas)
+    localStorage.setItem("listaDeTareas", JSON.stringify(listaDeTareas))
     editToggleForm()    
     divTareas.insertBefore(crearTarea1(listaDeTareas[currentTask]), currentTaskDiv)
     currentTaskDiv.remove();
+    console.log(listaDeTareas[currentTask].fecha)
 }
 
 function toggleForm(){
@@ -111,6 +124,7 @@ function editToggleForm(){
     } else {
         formDivEdit.className = "form-div hidden"
     }
+    
 }
 
 function editarEstado(e){
@@ -177,5 +191,110 @@ document.addEventListener("change", e => {
     }
 })
 
+ordenar.addEventListener("change", () => {
+    
+    ordenarF()
+})
 
-cargarTareas()
+filtrar.addEventListener("change", () => {
+    
+    filtrarF()
+})
+
+searchInput.addEventListener("keyup", () => {
+    buscar()
+});
+
+let innerT = `<div class="div-tareas-labels">
+<p>Tarea</p>
+<p>Prioridad</p>
+<p>Editar</p>
+<p>Estado</p>
+<p></p>
+</div>`
+
+function ordenarF(){
+
+    let tareas = document.querySelectorAll(".tarea");
+    let ordenarPor = document.getElementById("ordenar").value;
+    switch(ordenarPor){
+        case "sin": 
+            listaDeTareas.sort(function(a,b){return (a.fecha) - (b.fecha)});
+            console.log(listaDeTareas)
+            localStorage.setItem("listaDeTareas", JSON.stringify(listaDeTareas))
+            divTareas.innerHTML = innerT;
+            listaDeTareas.forEach(tarea => {
+                divTareas.append(crearTarea1(tarea))
+            });
+            break;
+        case "desc":
+            listaDeTareas.sort(function(a, b){return parseInt(b.prioridad, 10) - parseInt(a.prioridad, 10)});
+            localStorage.setItem("listaDeTareas", JSON.stringify(listaDeTareas))
+            divTareas.innerHTML = innerT;
+            listaDeTareas.forEach(tarea => {
+                divTareas.append(crearTarea1(tarea))
+            });
+            break;
+        case "asc":
+            listaDeTareas.sort(function(a, b){return parseInt(a.prioridad, 10) - parseInt(b.prioridad, 10)});
+            localStorage.setItem("listaDeTareas", JSON.stringify(listaDeTareas))
+            divTareas.innerHTML = innerT;
+            listaDeTareas.forEach(tarea => {
+                divTareas.append(crearTarea1(tarea))
+            });
+            break;
+        default:
+            console.log("default");
+    }
+}
+
+function filtrarF(){
+
+    let tareas = document.querySelectorAll(".tarea");
+    let filtrarPor = document.getElementById("filtrar").value;
+    switch(filtrarPor){
+        case "sinf":           
+        tareas.forEach(tar => {
+            tar.classList.remove("hidden")
+        })            
+            break;
+        case "comp":
+            tareas.forEach(tar => {
+                tar.classList.remove("hidden")
+            })
+            for (let i = 0; i < listaDeTareas.length; i++) {
+                if (!listaDeTareas[i].estado){
+                    tareas[i].classList.add("hidden")
+                }
+            }
+            break;
+        case "sinc":
+            tareas.forEach(tar => {
+                tar.classList.remove("hidden")
+            })
+            for (let i = 0; i < listaDeTareas.length; i++) {
+                if (listaDeTareas[i].estado){
+                    tareas[i].classList.add("hidden")
+                }
+            }
+            break;
+        default:
+            console.log("default");
+    }
+}
+
+function buscar() {    
+    let tareas = document.querySelectorAll(".tarea")
+    
+    let searchQuery = document.getElementById("searchbox").value;
+
+    for (let i = 0; i < listaDeTareas.length; i++) {
+      if(listaDeTareas[i].texto.toLowerCase().includes(searchQuery.toLowerCase())) {
+          tareas[i].classList.remove("hidden")
+      } else {
+        tareas[i].classList.add("hidden")
+      }
+    }
+}
+
+cargarTareas();

@@ -10,6 +10,23 @@
 <body>
     <header>
         <h1>Tareas</h1>
+        <label for="searchbox">Buscar:
+            <input type="search" id="searchbox">
+        </label>
+        <label for="ordenar">Ordenar por:  
+            <select name="ordenar" id="ordenar">
+                <option value="sin">Predeterminado</option>
+                <option value="desc">De mayor a menor prioridad</option>
+                <option value="asc">De menor a mayor prioridad</option>
+            </select>
+        </label>
+        <label for="filtrar">Filtrar:  
+            <select name="filtrar" id="filtrar">
+                <option value="sinf">Sin filtros</option>
+                <option value="comp">Completadas</option>
+                <option value="sinc">Sin Completar</option>
+            </select>
+        </label>
         <button class="crear-tarea">Agregar Tarea</button>
     </header>
 
@@ -23,47 +40,48 @@
             <p></p>
         </div>
 
-        <div class="form-div hidden">
-            <form onsubmit="return false" id="form">
-                <label for="tarea-texto">
-                    Ingresa tu tarea:
-                    <input type="text" id="tarea-texto">
-                </label>
-                <label for="prioridad">Prioridad:
-                    <select name="prioridad" id="prioridad">
-                        <option value="Baja">Baja</option>
-                        <option value="Media">Media</option>
-                        <option value="Alta">Alta</option>
-                    </select>
-                </label> 
-                <div class="div-botones">  
-                    <button id="cancelar-tarea">Cancelar</button>
-                    <button id="aceptar-tarea">Crear</button>
-                </div>  
-            </form>            
-        </div>
-
-        <div class="edit-form-div hidden">
-            <form onsubmit="return false" id="edit-form">
-                <label for="tarea-texto-edit">
-                    Ingresa tu tarea:
-                    <input type="text" id="tarea-texto-edit">
-                </label>
-                <label for="prioridad-edit">Prioridad:
-                    <select name="prioridad-edit" id="prioridad-edit">
-                        <option value="Baja">Baja</option>
-                        <option value="Media">Media</option>
-                        <option value="Alta">Alta</option>
-                    </select>
-                </label> 
-                <div class=" div-botones div-botones-edit">  
-                    <button id="cancelar-tarea-edit">Cancelar</button>
-                    <button id="aceptar-tarea-edit">Editar</button>
-                </div>  
-            </form>            
-        </div>
+        
 
     </main>
+    <div class="form-div hidden">
+        <form onsubmit="return false" id="form">
+            <label for="tarea-texto">
+                Ingresa tu tarea:
+                <input type="text" id="tarea-texto">
+            </label>
+            <label for="prioridad">Prioridad:
+                <select name="prioridad" id="prioridad">
+                    <option value="1" >Baja</option>
+                    <option value="2">Media</option>
+                    <option value="3">Alta</option>
+                </select>
+            </label> 
+            <div class="div-botones">  
+                <button id="cancelar-tarea">Cancelar</button>
+                <button id="aceptar-tarea">Crear</button>
+            </div>  
+        </form>            
+    </div>
+
+    <div class="edit-form-div hidden">
+        <form onsubmit="return false" id="edit-form">
+            <label for="tarea-texto-edit">
+                Ingresa tu tarea:
+                <input type="text" id="tarea-texto-edit">
+            </label>
+            <label for="prioridad-edit">Prioridad:
+                <select name="prioridad-edit" id="prioridad-edit">
+                    <option value="1">Baja</option>
+                    <option value="2">Media</option>
+                    <option value="3">Alta</option>
+                </select>
+            </label> 
+            <div class=" div-botones div-botones-edit">  
+                <button id="cancelar-tarea-edit">Cancelar</button>
+                <button id="aceptar-tarea-edit">Editar</button>
+            </div>  
+        </form>            
+    </div>
 
     <footer>Hecho por Luis Espino</footer>
 
