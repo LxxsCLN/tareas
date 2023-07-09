@@ -9,6 +9,7 @@ const divTareas = document.querySelector(".div-tareas")
 const searchInput = document.querySelector("#searchbox")
 const ordenar = document.querySelector("#ordenar")
 const filtrar = document.querySelector("#filtrar")
+const overlay = document.querySelector(".overlay")
 
 const formDivEdit = document.querySelector(".edit-form-div");
 const formEdit = document.querySelector("#form-edit");
@@ -113,16 +114,20 @@ function toggleForm(){
     form.reset()
     if (formDiv.classList.contains("hidden")){
         formDiv.className = "form-div visible"
+        overlay.className = "overlay"
     } else {
         formDiv.className = "form-div hidden"
+        overlay.className = "overlay hidden"
     }
 }
 
 function editToggleForm(){
-    if (formDivEdit.classList.contains("hidden")){
-        formDivEdit.className = "form-div visible"
+    if (formDiv.classList.contains("hidden")){
+        formDiv.className = "form-div visible"
+        overlay.className = "overlay"
     } else {
-        formDivEdit.className = "form-div hidden"
+        formDiv.className = "form-div hidden"
+        overlay.className = "overlay hidden"
     }
     
 }

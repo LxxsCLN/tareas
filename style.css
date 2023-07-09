@@ -50,6 +50,8 @@ main{
     background-color: white;
     padding: 20px;
     border: 1px solid green;
+    border-radius: 16px;
+    z-index: 2;
 }
 
 form{
@@ -111,6 +113,15 @@ footer{
     align-items: center;
     background-color: #1a344e;
     color: white;
+}
+
+.overlay{
+    position: absolute;
+    background-color: black;
+    opacity: .4;
+    
+    width: 100vw;
+    height: 100vh;
 }
 
 .hidden{
